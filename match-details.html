@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Details | INTERLMG ARM WRESTLING</title>
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Roboto:wght@300;400;700&display=swap)" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-charcoal: #141414;
+            --accent-red: #d41e1e;
+            --accent-orange: #ff6b00;
+            --accent-gold: #ffc107;
+            --text-white: #ffffff;
+            --text-gray: #b0b0b0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+        }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+
+        .navbar {
+            position: fixed; top: 0; width: 100%; padding: 1.5rem 5%;
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            background: rgba(10, 10, 10, 0.98);
+        }
+        .logo {
+            font-family: 'Oswald'; font-size: 1.8rem; font-weight: 700; color: var(--text-white); text-decoration: none;
+        }
+        .logo span { color: var(--accent-red); }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { color: var(--text-white); text-decoration: none; font-weight: 500; text-transform: uppercase; font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--accent-red); }
+        .btn {
+            padding: 1rem 2.5rem; font-family: 'Oswald'; font-size: 1.1rem; text-transform: uppercase;
+            letter-spacing: 1px; border: none; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block;
+        }
+        .btn-primary {
+            background: var(--accent-red); color: var(--text-white); clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212,30,30,0.4); }
+
+        .match-hero {
+            margin-top: 80px; padding: 4rem 5%; text-align: center;
+            background: linear-gradient(to bottom, rgba(212,30,30,0.1), var(--bg-dark));
+        }
+        .match-poster {
+            max-width: 900px; margin: 0 auto 3rem; aspect-ratio: 16/9;
+            background: linear-gradient(135deg, var(--bg-charcoal), #1a1a1a); border: 2px solid rgba(212,30,30,0.3);
+            display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+        }
+        .match-poster-content {
+            text-align: center; padding: 2rem; z-index: 2;
+        }
+        .match-poster h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .match-poster .versus { color: var(--accent-red); font-size: 4rem; font-weight: 700; }
+
+        .match-details {
+            padding: 4rem 5%; max-width: 1200px; margin: 0 auto;
+        }
+        .players-grid {
+            display: grid; grid-template-columns: 1fr auto 1fr; gap: 3rem; align-items: center; margin-bottom: 4rem;
+        }
+        .player-card { text-align: center; }
+        .player-image {
+            width: 250px; height: 300px; margin: 0 auto 1.5rem; overflow: hidden;
+            border: 3px solid var(--accent-red); position: relative;
+        }
+        .player-image img { width: 100%; height: 100%; object-fit: cover; }
+        .player-card h3 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .player-card .team { color: var(--accent-orange); }
+
+        .vs-center { font-size: 4rem; color: var(--accent-red); font-family: 'Oswald'; font-weight: 700; }
+
+        .info-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;
+        }
+        .info-box {
+            background: var(--bg-charcoal); padding: 1.5rem; border-left: 3px solid var(--accent-red);
+        }
+        .info-box h4 { color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .info-box p { font-size: 1.1rem; }
+
+        .rules-section { margin-top: 3rem; }
+        .rules-section h2 { margin-bottom: 1.5rem; text-align: center; }
+        .rules-list {
+            background: var(--bg-charcoal); padding: 2rem; list-style: none;
+        }
+        .rules-list li {
+            padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: flex-start; gap: 1rem;
+        }
+        .rules-list li::before {
+            content: '§'; color: var(--accent-red); font-weight: 700; font-size: 1.2rem;
+        }
+
+        .cta-box {
+            text-align: center; padding: 4rem; margin-top: 3rem;
+            background: linear-gradient(135deg, rgba(212,30,30,0.2), transparent);
+            border: 1px solid rgba(212,30,30,0.3);
+        }
+        .cta-box h2 { margin-bottom: 1.5rem; }
+
+        .referee-box {
+            display: flex; align-items: center; gap: 2rem; margin: 3rem auto;
+            max-width: 600px; background: var(--bg-charcoal); padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .referee-image {
+            width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent-gold);
+        }
+        .referee-image img { width: 100%; height: 100%; object-fit: cover; }
+        .referee-info h4 { color: var(--accent-gold); margin-bottom: 0.3rem; }
+        .referee-info p { color: var(--text-gray); }
+
+        @media (max-width: 768px) {
+            .players-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .vs-center { order: -1; }
+            .match-poster h1 { font-size: 2rem; }
+            .match-poster .versus { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo"><span>INTERLMG</span> ARM WRESTLING</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="register.html">Register</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="match-hero">
+        <div class="match-poster">
+            <div class="match-poster-content">
+                <p style="color: var(--accent-orange); letter-spacing: 3px; margin-bottom: 1rem;">CHAMPIONSHIP 2026</p>
+                <h1> Rocket  <span class="versus">VS</span> Gaurav </h1>
+                <p style="color: var(--text-gray); margin-top: 1rem;">The Ultimate Showdown</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="match-details">
+        <div class="players-grid">
+            <div class="player-card">
+                <div class="player-image">
+                    <img src="image/Rocket.png" alt="Player 1">
+                </div>
+                <h3> Rocket </h3>
+                <p class="team">Team Lumding </p>
+                <!-- <p style="margin-top: 1rem; color: var(--text-gray);">Age: 28 | Weight: 95kg | Arm: Right</p>
+                <p style="margin-top: 0.5rem; color: var(--accent-gold);">Rank: #1 Asia</p> -->
+            </div>
+            <div class="vs-center">VS</div>
+            <div class="player-card">
+                <div class="player-image">
+                    <img src="image/Gourav.jpeg" alt="Player 2">
+                </div>
+                <h3> Gaurav </h3>
+                <p class="team">Team Hojai  </p>
+                <!-- <p style="margin-top: 1rem; color: var(--text-gray);">Age: 30 | Weight: 92kg | Arm: Right</p>
+                <p style="margin-top: 0.5rem; color: var(--accent-gold);">Rank: #2 World</p> -->
+            </div>
+        </div>
+
+        <div class="referee-box">
+            <div class="referee-image">
+                <img src="image/vishalMitra.png" alt="Referee">
+            </div>
+            <div class="referee-info">
+                <h4>Chief Referee</h4>
+                <h3> Bishal Maitra  </h3>
+                <!-- <p>International Certified Referee | 15 Years Experience</p> -->
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <h4>Date</h4>
+                <p>August 15, 2026</p>
+            </div>
+            <div class="info-box">
+                <h4>Time</h4>
+                <p> 5:00 PM IST</p>
+            </div>
+            <div class="info-box">
+                <h4>Venue</h4>
+                <p> Azad Hind Public Library , Lumding , Assam </p>
+            </div>
+            <div class="info-box">
+                <h4>Category</h4>
+                <p>Professional Right Hand</p>
+            </div>
+            <div class="info-box">
+                <h4>Event</h4>
+                <p>INTERLMG Championship 2026</p>
+            </div>
+            <div class="info-box">
+                <h4>Entry Fee</h4>
+                <p> Free </p>
+            </div>
+        </div>
+
+        <div class="rules-section">
+            <h2>Match Rules</h2>
+            <ul class="rules-list">
+                <li>Both competitors must keep their free hand on the peg during the match.</li>
+                <li>Shoulders must remain square to the table and cannot cross the center line.</li>
+                <li>The match starts with the referee's "Ready to Go" command.</li>
+                <li>A pin is achieved when the wrist touches or goes below the touch pad.</li>
+                <li>Intentional slip results in a foul; two fouls result in match forfeit.</li>
+                <li>False starts will result in an immediate foul warning.</li>
+                <li>Back pressure is limited to 25% of body weight.</li>
+                <li>The referee's decision is final and binding.</li>
+            </ul>
+        </div>
+
+        <div class="cta-box">
+            <h2>Want to Compete?</h2>
+            <p style="color: var(--text-gray); margin-bottom: 2rem;">Register now to secure your spot in the championship.</p>
+            <a href="register.html?event=Championship%202026&match=Singh%20vs%20Patel" class="btn btn-primary">Register Now</a>
+        </div>
+    </section>
+
+    <footer style="background: #050505; padding: 2rem; text-align: center; color: var(--text-gray);">
+        <p>&copy; 2026 INTERLMG ARM WRESTLING. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

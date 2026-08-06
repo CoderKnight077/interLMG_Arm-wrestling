@@ -1,0 +1,2272 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>INTERLMG Admin Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#090909;
+    --panel:#141414;
+    --panel2:#1b1b1b;
+    --red:#d41e1e;
+    --red-dark:#a91414;
+    --gold:#ffc107;
+    --white:#fff;
+    --gray:#aaa;
+    --border:rgba(255,255,255,.1);
+    --green:#20c997;
+    --orange:#ff9800;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Roboto',sans-serif;
+    background:var(--bg);
+    color:var(--white);
+    min-height:100vh;
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:250px;
+    background:#101010;
+    border-right:1px solid var(--border);
+    z-index:1000;
+    overflow-y:auto;
+}
+
+.brand{
+    padding:25px 20px;
+    border-bottom:1px solid var(--border);
+}
+
+.brand h1{
+    font-family:'Oswald',sans-serif;
+    font-size:22px;
+    letter-spacing:1px;
+}
+
+.brand h1 span{
+    color:var(--red);
+}
+
+.brand small{
+    display:block;
+    margin-top:5px;
+    color:#777;
+    font-size:11px;
+    letter-spacing:1px;
+}
+
+.nav{
+    padding:15px 10px;
+}
+
+.nav button{
+    width:100%;
+    padding:13px 15px;
+    margin-bottom:5px;
+    border:0;
+    background:transparent;
+    color:#aaa;
+    text-align:left;
+    cursor:pointer;
+    font-size:14px;
+    border-radius:4px;
+}
+
+.nav button:hover,
+.nav button.active{
+    background:rgba(212,30,30,.15);
+    color:white;
+}
+
+.nav button.active{
+    border-left:3px solid var(--red);
+}
+
+.logout{
+    position:absolute;
+    bottom:20px;
+    left:15px;
+    right:15px;
+}
+
+.logout button{
+    width:100%;
+    padding:12px;
+    background:#1d1d1d;
+    border:1px solid var(--border);
+    color:#aaa;
+    cursor:pointer;
+}
+
+.logout button:hover{
+    color:white;
+    border-color:var(--red);
+}
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+    margin-left:250px;
+    padding:30px;
+}
+
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:30px;
+}
+
+.topbar h2{
+    font-family:'Oswald',sans-serif;
+    font-size:30px;
+    text-transform:uppercase;
+}
+
+.topbar p{
+    color:#777;
+    margin-top:4px;
+    font-size:13px;
+}
+
+.refresh-btn{
+    padding:10px 18px;
+    background:var(--red);
+    border:0;
+    color:white;
+    cursor:pointer;
+    font-family:'Oswald',sans-serif;
+    letter-spacing:.5px;
+}
+
+.refresh-btn:hover{
+    background:var(--red-dark);
+}
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.stat{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:22px;
+    position:relative;
+}
+
+.stat::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:3px;
+    height:100%;
+    background:var(--red);
+}
+
+.stat h3{
+    font-size:30px;
+    font-family:'Oswald',sans-serif;
+}
+
+.stat p{
+    margin-top:5px;
+    color:#888;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+.card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    margin-bottom:25px;
+}
+
+.card-header{
+    padding:18px 20px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.card-header h3{
+    font-family:'Oswald',sans-serif;
+    font-size:19px;
+    text-transform:uppercase;
+}
+
+.card-body{
+    padding:20px;
+}
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-area{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.search-area input,
+.search-area select{
+    padding:12px;
+    background:#0b0b0b;
+    color:white;
+    border:1px solid var(--border);
+}
+
+.search-area input{
+    flex:1;
+}
+
+.search-area select{
+    min-width:170px;
+}
+
+.search-area input:focus,
+.search-area select:focus{
+    outline:none;
+    border-color:var(--red);
+}
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-wrap{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:950px;
+}
+
+th{
+    background:#1d1d1d;
+    color:#aaa;
+    text-align:left;
+    padding:13px 12px;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    white-space:nowrap;
+}
+
+td{
+    padding:14px 12px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    font-size:13px;
+    vertical-align:middle;
+}
+
+tr:hover td{
+    background:rgba(255,255,255,.025);
+}
+
+.reg-id{
+    color:var(--gold);
+    font-family:monospace;
+    font-weight:bold;
+}
+
+.date{
+    color:#aaa;
+    white-space:nowrap;
+}
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:3px;
+    font-size:10px;
+    text-transform:uppercase;
+    font-weight:bold;
+    letter-spacing:.5px;
+}
+
+.badge-paid{
+    background:rgba(32,201,151,.15);
+    color:var(--green);
+}
+
+.badge-pending{
+    background:rgba(255,152,0,.15);
+    color:var(--orange);
+}
+
+.badge-rejected{
+    background:rgba(212,30,30,.15);
+    color:#ff5555;
+}
+
+.badge-active{
+    background:rgba(32,201,151,.15);
+    color:var(--green);
+}
+
+.badge-approved{
+    background:rgba(32,201,151,.15);
+    color:var(--green);
+}
+
+.badge-cancelled{
+    background:rgba(212,30,30,.15);
+    color:#ff5555;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.actions{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:7px 9px;
+    border:1px solid var(--border);
+    background:#202020;
+    color:#ddd;
+    cursor:pointer;
+    font-size:11px;
+}
+
+.btn:hover{
+    background:#2a2a2a;
+}
+
+.btn.green{
+    color:var(--green);
+}
+
+.btn.red{
+    color:#ff5555;
+}
+
+.btn.gold{
+    color:var(--gold);
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.8);
+    z-index:2000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:700px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:#151515;
+    border:1px solid var(--border);
+    box-shadow:0 20px 80px rgba(0,0,0,.8);
+}
+
+.modal-header{
+    padding:18px 20px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.modal-header h3{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+}
+
+.close{
+    border:0;
+    background:none;
+    color:#aaa;
+    font-size:25px;
+    cursor:pointer;
+}
+
+.close:hover{
+    color:white;
+}
+
+.modal-body{
+    padding:20px;
+}
+
+.detail-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+}
+
+.detail{
+    background:#101010;
+    padding:14px;
+}
+
+.detail label{
+    display:block;
+    color:#777;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:5px;
+}
+
+.detail strong{
+    font-size:14px;
+    word-break:break-word;
+}
+
+.modal-actions{
+    margin-top:20px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+    padding:50px 20px;
+    text-align:center;
+    color:#666;
+}
+
+.empty strong{
+    display:block;
+    color:#aaa;
+    margin-bottom:5px;
+}
+
+/* =====================================================
+   MANUAL ADD
+===================================================== */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+.form-group label{
+    margin-bottom:7px;
+    color:#999;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    padding:12px;
+    background:#0b0b0b;
+    border:1px solid var(--border);
+    color:white;
+    font-family:inherit;
+}
+
+.form-group textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    outline:none;
+    border-color:var(--red);
+}
+
+.save-btn{
+    margin-top:20px;
+    padding:13px 25px;
+    background:var(--red);
+    color:white;
+    border:0;
+    cursor:pointer;
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+}
+
+.save-btn:hover{
+    background:var(--red-dark);
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+.mobile-menu{
+    display:none;
+}
+
+@media(max-width:1000px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        width:0;
+        overflow:hidden;
+        transition:.2s;
+    }
+
+    .sidebar.open{
+        width:250px;
+    }
+
+    .main{
+        margin-left:0;
+        padding:20px 15px;
+    }
+
+    .mobile-menu{
+        display:block;
+        background:#1b1b1b;
+        border:1px solid var(--border);
+        color:white;
+        padding:9px 12px;
+        cursor:pointer;
+        margin-right:10px;
+    }
+
+    .topbar{
+        align-items:flex-start;
+    }
+
+    .topbar h2{
+        font-size:23px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .search-area{
+        flex-direction:column;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .detail-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:450px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        gap:10px;
+    }
+
+    .refresh-btn{
+        padding:8px 10px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <h1><span>INTERLMG</span> ADMIN</h1>
+        <small>ARM WRESTLING MANAGEMENT</small>
+    </div>
+
+    <nav class="nav">
+
+        <button class="nav-btn active" data-section="overview">
+            Dashboard
+        </button>
+
+        <button class="nav-btn" data-section="registrations">
+            Registrations
+        </button>
+
+        <button class="nav-btn" data-section="add-registration">
+            Add Registration
+        </button>
+
+    </nav>
+
+    <div class="logout">
+        <button onclick="logoutAdmin()">LOGOUT</button>
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+    <div class="topbar">
+
+        <div style="display:flex;align-items:center;">
+
+            <button class="mobile-menu" onclick="toggleSidebar()">
+                ☰
+            </button>
+
+            <div>
+                <h2 id="pageTitle">Dashboard</h2>
+                <p>INTERLMG ARM WRESTLING ADMIN PANEL</p>
+            </div>
+
+        </div>
+
+        <button class="refresh-btn" onclick="loadAndRender()">
+            ↻ REFRESH
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         STATS
+    ================================================= -->
+
+    <div class="stats">
+
+        <div class="stat">
+            <h3 id="totalRegistrations">0</h3>
+            <p>Total Registrations</p>
+        </div>
+
+        <div class="stat">
+            <h3 id="paidRegistrations">0</h3>
+            <p>Paid Registrations</p>
+        </div>
+
+        <div class="stat">
+            <h3 id="pendingRegistrations">0</h3>
+            <p>Pending Payments</p>
+        </div>
+
+        <div class="stat">
+            <h3 id="approvedRegistrations">0</h3>
+            <p>Approved</p>
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         OVERVIEW
+    ================================================= -->
+
+    <section class="section active" id="overview">
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3>Recent Registrations</h3>
+
+                <button class="btn gold" onclick="showSection('registrations')">
+                    VIEW ALL
+                </button>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Registration ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Payment</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="recentTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         REGISTRATIONS
+    ================================================= -->
+
+    <section class="section" id="registrations">
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3>All Registrations</h3>
+
+                <span id="registrationCount" style="color:#777;font-size:12px;">
+                    0 registrations
+                </span>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="search-area">
+
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search name, ID, phone, email..."
+                        oninput="renderRegistrations()"
+                    >
+
+                    <select id="paymentFilter" onchange="renderRegistrations()">
+
+                        <option value="all">
+                            All Payments
+                        </option>
+
+                        <option value="paid">
+                            Paid
+                        </option>
+
+                        <option value="pending">
+                            Pending
+                        </option>
+
+                        <option value="rejected">
+                            Rejected
+                        </option>
+
+                    </select>
+
+                    <select id="statusFilter" onchange="renderRegistrations()">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="active">
+                            Active
+                        </option>
+
+                        <option value="approved">
+                            Approved
+                        </option>
+
+                        <option value="cancelled">
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Registration ID</th>
+
+                                <th>Participant</th>
+
+                                <th>Phone</th>
+
+                                <th>Category</th>
+
+                                <th>Registration Date</th>
+
+                                <th>Payment</th>
+
+                                <th>Status</th>
+
+                                <th>Actions</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="registrationTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ADD REGISTRATION
+    ================================================= -->
+
+    <section class="section" id="add-registration">
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3>Add Registration Manually</h3>
+
+            </div>
+
+            <div class="card-body">
+
+                <form id="manualRegistrationForm">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Full Name *</label>
+
+                            <input
+                                type="text"
+                                id="manualName"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Phone *</label>
+
+                            <input
+                                type="tel"
+                                id="manualPhone"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Email</label>
+
+                            <input
+                                type="email"
+                                id="manualEmail"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Category *</label>
+
+                            <input
+                                type="text"
+                                id="manualCategory"
+                                placeholder="Example: 70 KG Men"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Payment Status</label>
+
+                            <select id="manualPayment">
+
+                                <option value="Pending">
+                                    Pending
+                                </option>
+
+                                <option value="Paid">
+                                    Paid
+                                </option>
+
+                                <option value="Rejected">
+                                    Rejected
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Registration Status</label>
+
+                            <select id="manualStatus">
+
+                                <option value="Active">
+                                    Active
+                                </option>
+
+                                <option value="Approved">
+                                    Approved
+                                </option>
+
+                                <option value="Cancelled">
+                                    Cancelled
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label>Notes</label>
+
+                            <textarea id="manualNotes"></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <button class="save-btn" type="submit">
+                        SAVE REGISTRATION
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     REGISTRATION DETAILS MODAL
+===================================================== -->
+
+<div class="modal" id="detailsModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>Registration Details</h3>
+
+            <button class="close" onclick="closeModal()">
+                ×
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <div class="detail-grid" id="registrationDetails"></div>
+
+            <div class="modal-actions" id="modalActions"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   AUTHENTICATION
+===================================================== */
+
+/*
+   dashboard.html is protected by the session created
+   by login.html.
+*/
+
+if(sessionStorage.getItem('interlmgadmin') !== 'true'){
+
+    window.location.href = 'login.html';
+
+}
+
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let data = {};
+
+
+function loadData(){
+
+    try{
+
+        data = JSON.parse(
+            localStorage.getItem('interlmg_data') || '{}'
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        data = {};
+
+    }
+
+
+    if(!Array.isArray(data.registrations)){
+
+        data.registrations = [];
+
+    }
+
+}
+
+
+function saveData(){
+
+    localStorage.setItem(
+        'interlmg_data',
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =====================================================
+   REGISTRATION ID
+===================================================== */
+
+function generateRegistrationId(){
+
+    const year = new Date().getFullYear();
+
+    let maxNumber = 0;
+
+    data.registrations.forEach(reg => {
+
+        if(!reg.id){
+            return;
+        }
+
+        const match =
+            String(reg.id).match(
+                /ILMG-\d{4}-(\d+)/
+            );
+
+        if(match){
+
+            const number =
+                parseInt(match[1],10);
+
+            if(number > maxNumber){
+                maxNumber = number;
+            }
+
+        }
+
+    });
+
+
+    const nextNumber =
+        String(maxNumber + 1).padStart(4,'0');
+
+
+    return `ILMG-${year}-${nextNumber}`;
+
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value ?? '')
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#039;');
+
+}
+
+
+function formatDate(value){
+
+    if(!value){
+        return '-';
+    }
+
+    const date = new Date(value);
+
+    if(isNaN(date.getTime())){
+        return escapeHTML(value);
+    }
+
+    return date.toLocaleDateString(
+        'en-IN',
+        {
+            day:'2-digit',
+            month:'short',
+            year:'numeric'
+        }
+    );
+
+}
+
+
+function normalize(value){
+
+    return String(value || '').toLowerCase();
+
+}
+
+
+function getCategory(reg){
+
+    return (
+        reg.category ||
+        reg.weightCategory ||
+        reg.weight ||
+        reg.class ||
+        reg.eventCategory ||
+        '-'
+    );
+
+}
+
+
+function getName(reg){
+
+    return (
+        reg.fullName ||
+        reg.name ||
+        '-'
+    );
+
+}
+
+
+function getPayment(reg){
+
+    return String(
+        reg.paymentStatus ||
+        'Pending'
+    );
+
+}
+
+
+function getStatus(reg){
+
+    return String(
+        reg.registrationStatus ||
+        reg.status ||
+        'Active'
+    );
+
+}
+
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+function paymentBadge(status){
+
+    const value =
+        normalize(status);
+
+    if(value === 'paid'){
+
+        return `
+            <span class="badge badge-paid">
+                Paid
+            </span>
+        `;
+
+    }
+
+    if(value === 'rejected'){
+
+        return `
+            <span class="badge badge-rejected">
+                Rejected
+            </span>
+        `;
+
+    }
+
+    return `
+        <span class="badge badge-pending">
+            Pending
+        </span>
+    `;
+
+}
+
+
+function statusBadge(status){
+
+    const value =
+        normalize(status);
+
+    if(value === 'approved'){
+
+        return `
+            <span class="badge badge-approved">
+                Approved
+            </span>
+        `;
+
+    }
+
+    if(value === 'cancelled'){
+
+        return `
+            <span class="badge badge-cancelled">
+                Cancelled
+            </span>
+        `;
+
+    }
+
+    return `
+        <span class="badge badge-active">
+            Active
+        </span>
+    `;
+
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+function updateStats(){
+
+    const registrations =
+        data.registrations || [];
+
+
+    const paid =
+        registrations.filter(
+            r => normalize(getPayment(r)) === 'paid'
+        ).length;
+
+
+    const pending =
+        registrations.filter(
+            r => normalize(getPayment(r)) === 'pending'
+        ).length;
+
+
+    const approved =
+        registrations.filter(
+            r => normalize(getStatus(r)) === 'approved'
+        ).length;
+
+
+    document.getElementById(
+        'totalRegistrations'
+    ).textContent =
+        registrations.length;
+
+
+    document.getElementById(
+        'paidRegistrations'
+    ).textContent =
+        paid;
+
+
+    document.getElementById(
+        'pendingRegistrations'
+    ).textContent =
+        pending;
+
+
+    document.getElementById(
+        'approvedRegistrations'
+    ).textContent =
+        approved;
+
+
+    document.getElementById(
+        'registrationCount'
+    ).textContent =
+        `${registrations.length} registration${registrations.length === 1 ? '' : 's'}`;
+
+}
+
+
+/* =====================================================
+   RECENT REGISTRATIONS
+===================================================== */
+
+function renderRecentRegistrations(){
+
+    const tbody =
+        document.getElementById(
+            'recentTable'
+        );
+
+
+    const registrations =
+        [...data.registrations]
+            .sort(
+                (a,b) =>
+                    new Date(
+                        b.registrationDate || 0
+                    ) -
+                    new Date(
+                        a.registrationDate || 0
+                    )
+            )
+            .slice(0,10);
+
+
+    if(!registrations.length){
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    <div class="empty">
+                        <strong>No registrations yet</strong>
+                        Registrations submitted through register.html will appear here.
+                    </div>
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        registrations.map(
+            reg => {
+
+                const index =
+                    data.registrations.indexOf(reg);
+
+
+                return `
+                    <tr>
+
+                        <td>
+                            <span class="reg-id">
+                                ${escapeHTML(reg.id || '-')}
+                            </span>
+                        </td>
+
+                        <td>
+                            ${escapeHTML(getName(reg))}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(getCategory(reg))}
+                        </td>
+
+                        <td class="date">
+                            ${formatDate(reg.registrationDate)}
+                        </td>
+
+                        <td>
+                            ${paymentBadge(getPayment(reg))}
+                        </td>
+
+                        <td>
+                            ${statusBadge(getStatus(reg))}
+                        </td>
+
+                        <td>
+                            <button
+                                class="btn gold"
+                                onclick="viewRegistration(${index})"
+                            >
+                                VIEW
+                            </button>
+                        </td>
+
+                    </tr>
+                `;
+
+            }
+        ).join('');
+
+}
+
+
+/* =====================================================
+   ALL REGISTRATIONS
+===================================================== */
+
+function renderRegistrations(){
+
+    const tbody =
+        document.getElementById(
+            'registrationTable'
+        );
+
+
+    const search =
+        normalize(
+            document.getElementById(
+                'searchInput'
+            ).value
+        );
+
+
+    const paymentFilter =
+        normalize(
+            document.getElementById(
+                'paymentFilter'
+            ).value
+        );
+
+
+    const statusFilter =
+        normalize(
+            document.getElementById(
+                'statusFilter'
+            ).value
+        );
+
+
+    const results =
+        data.registrations
+            .map(
+                (reg,index) => ({
+                    reg,
+                    index
+                })
+            )
+            .filter(item => {
+
+                const reg =
+                    item.reg;
+
+
+                const searchable = [
+                    reg.id,
+                    getName(reg),
+                    reg.phone,
+                    reg.email,
+                    getCategory(reg)
+                ]
+                .join(' ')
+                .toLowerCase();
+
+
+                if(
+                    search &&
+                    !searchable.includes(search)
+                ){
+                    return false;
+                }
+
+
+                if(
+                    paymentFilter !== 'all' &&
+                    normalize(getPayment(reg)) !== paymentFilter
+                ){
+                    return false;
+                }
+
+
+                if(
+                    statusFilter !== 'all' &&
+                    normalize(getStatus(reg)) !== statusFilter
+                ){
+                    return false;
+                }
+
+
+                return true;
+
+            });
+
+
+    if(!results.length){
+
+        tbody.innerHTML = `
+            <tr>
+
+                <td colspan="8">
+
+                    <div class="empty">
+
+                        <strong>No registrations found</strong>
+
+                        Try changing your search or filter.
+
+                    </div>
+
+                </td>
+
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        results.map(
+            item => {
+
+                const reg =
+                    item.reg;
+
+                const index =
+                    item.index;
+
+
+                return `
+                    <tr>
+
+                        <td>
+                            <span class="reg-id">
+                                ${escapeHTML(reg.id || '-')}
+                            </span>
+                        </td>
+
+                        <td>
+                            <strong>
+                                ${escapeHTML(getName(reg))}
+                            </strong>
+                            <br>
+                            <small style="color:#666;">
+                                ${escapeHTML(reg.email || '')}
+                            </small>
+                        </td>
+
+                        <td>
+                            ${escapeHTML(reg.phone || '-')}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(getCategory(reg))}
+                        </td>
+
+                        <td class="date">
+                            ${formatDate(reg.registrationDate)}
+                        </td>
+
+                        <td>
+                            ${paymentBadge(getPayment(reg))}
+                        </td>
+
+                        <td>
+                            ${statusBadge(getStatus(reg))}
+                        </td>
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="btn gold"
+                                    onclick="viewRegistration(${index})"
+                                >
+                                    VIEW
+                                </button>
+
+                                <button
+                                    class="btn green"
+                                    onclick="markPaid(${index})"
+                                >
+                                    PAID
+                                </button>
+
+                                <button
+                                    class="btn"
+                                    onclick="approveRegistration(${index})"
+                                >
+                                    APPROVE
+                                </button>
+
+                                <button
+                                    class="btn red"
+                                    onclick="deleteRegistration(${index})"
+                                >
+                                    DELETE
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                `;
+
+            }
+        ).join('');
+
+}
+
+
+/* =====================================================
+   VIEW REGISTRATION
+===================================================== */
+
+function viewRegistration(index){
+
+    const reg =
+        data.registrations[index];
+
+    if(!reg){
+        return;
+    }
+
+
+    const details =
+        document.getElementById(
+            'registrationDetails'
+        );
+
+
+    const fields = [
+
+        ['Registration ID',reg.id],
+
+        ['Full Name',getName(reg)],
+
+        ['Phone',reg.phone],
+
+        ['Email',reg.email],
+
+        ['Category',getCategory(reg)],
+
+        ['Date of Birth',reg.dob],
+
+        ['Gender',reg.gender],
+
+        ['Address',reg.address],
+
+        ['City',reg.city],
+
+        ['State',reg.state],
+
+        ['Event',reg.event],
+
+        ['Match',reg.match],
+
+        ['Payment Status',getPayment(reg)],
+
+        ['Registration Status',getStatus(reg)],
+
+        ['Registration Date',formatDate(reg.registrationDate)],
+
+        ['UTR / Transaction ID',reg.utr || reg.utrNumber || reg.transactionId],
+
+        ['Notes',reg.notes]
+
+    ];
+
+
+    details.innerHTML =
+        fields.map(
+            field => {
+
+                return `
+                    <div class="detail">
+
+                        <label>
+                            ${escapeHTML(field[0])}
+                        </label>
+
+                        <strong>
+                            ${escapeHTML(field[1] || '-')}
+                        </strong>
+
+                    </div>
+                `;
+
+            }
+        ).join('');
+
+
+    const actions =
+        document.getElementById(
+            'modalActions'
+        );
+
+
+    const phone =
+        String(reg.phone || '')
+            .replace(/\D/g,'');
+
+
+    let whatsappButton = '';
+
+
+    if(phone){
+
+        whatsappButton = `
+            <button
+                class="btn green"
+                onclick="openWhatsApp('${escapeAttribute(phone)}')"
+            >
+                WHATSAPP
+            </button>
+        `;
+
+    }
+
+
+    actions.innerHTML = `
+
+        <button
+            class="btn green"
+            onclick="markPaid(${index}); closeModal();"
+        >
+            MARK PAYMENT PAID
+        </button>
+
+        <button
+            class="btn"
+            onclick="approveRegistration(${index}); closeModal();"
+        >
+            APPROVE
+        </button>
+
+        ${whatsappButton}
+
+        <button
+            class="btn red"
+            onclick="deleteRegistration(${index}); closeModal();"
+        >
+            DELETE
+        </button>
+
+    `;
+
+
+    document
+        .getElementById('detailsModal')
+        .classList.add('show');
+
+}
+
+
+function closeModal(){
+
+    document
+        .getElementById('detailsModal')
+        .classList.remove('show');
+
+}
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+function markPaid(index){
+
+    const reg =
+        data.registrations[index];
+
+    if(!reg){
+        return;
+    }
+
+
+    reg.paymentStatus =
+        'Paid';
+
+
+    saveData();
+
+    loadAndRender();
+
+}
+
+
+function markPending(index){
+
+    const reg =
+        data.registrations[index];
+
+    if(!reg){
+        return;
+    }
+
+
+    reg.paymentStatus =
+        'Pending';
+
+
+    saveData();
+
+    loadAndRender();
+
+}
+
+
+/* =====================================================
+   APPROVE
+===================================================== */
+
+function approveRegistration(index){
+
+    const reg =
+        data.registrations[index];
+
+    if(!reg){
+        return;
+    }
+
+
+    reg.registrationStatus =
+        'Approved';
+
+
+    reg.status =
+        'Approved';
+
+
+    saveData();
+
+    loadAndRender();
+
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+function deleteRegistration(index){
+
+    const reg =
+        data.registrations[index];
+
+    if(!reg){
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Delete registration ${reg.id || ''} for ${getName(reg)}?`
+        );
+
+
+    if(!confirmed){
+        return;
+    }
+
+
+    data.registrations.splice(
+        index,
+        1
+    );
+
+
+    saveData();
+
+    loadAndRender();
+
+}
+
+
+/* =====================================================
+   WHATSAPP
+===================================================== */
+
+function openWhatsApp(phone){
+
+    let number =
+        String(phone)
+            .replace(/\D/g,'');
+
+
+    /*
+       Add India's country code when the number
+       appears to be a normal 10 digit Indian number.
+    */
+
+    if(number.length === 10){
+
+        number =
+            '91' + number;
+
+    }
+
+
+    window.open(
+        'https://wa.me/' + number,
+        '_blank'
+    );
+
+}
+
+
+/* =====================================================
+   MANUAL REGISTRATION
+===================================================== */
+
+document
+    .getElementById('manualRegistrationForm')
+    .addEventListener(
+        'submit',
+        function(event){
+
+            event.preventDefault();
+
+
+            const registration = {
+
+                id:
+                    generateRegistrationId(),
+
+                fullName:
+                    document.getElementById(
+                        'manualName'
+                    ).value.trim(),
+
+                phone:
+                    document.getElementById(
+                        'manualPhone'
+                    ).value.trim(),
+
+                email:
+                    document.getElementById(
+                        'manualEmail'
+                    ).value.trim(),
+
+                category:
+                    document.getElementById(
+                        'manualCategory'
+                    ).value.trim(),
+
+                paymentStatus:
+                    document.getElementById(
+                        'manualPayment'
+                    ).value,
+
+                registrationStatus:
+                    document.getElementById(
+                        'manualStatus'
+                    ).value,
+
+                status:
+                    document.getElementById(
+                        'manualStatus'
+                    ).value,
+
+                notes:
+                    document.getElementById(
+                        'manualNotes'
+                    ).value.trim(),
+
+                registrationDate:
+                    new Date().toISOString()
+
+            };
+
+
+            data.registrations.push(
+                registration
+            );
+
+
+            saveData();
+
+            this.reset();
+
+            loadAndRender();
+
+            showSection('registrations');
+
+
+            alert(
+                `Registration saved successfully.\n\nRegistration ID: ${registration.id}`
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function showSection(sectionId){
+
+    document
+        .querySelectorAll('.section')
+        .forEach(
+            section =>
+                section.classList.remove('active')
+        );
+
+
+    document
+        .getElementById(sectionId)
+        .classList.add('active');
+
+
+    document
+        .querySelectorAll('.nav-btn')
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+                    'active',
+                    button.dataset.section === sectionId
+                );
+
+            }
+        );
+
+
+    const titles = {
+
+        overview:
+            'Dashboard',
+
+        registrations:
+            'Registrations',
+
+        'add-registration':
+            'Add Registration'
+
+    };
+
+
+    document.getElementById(
+        'pageTitle'
+    ).textContent =
+        titles[sectionId] || 'Dashboard';
+
+
+    document
+        .getElementById('sidebar')
+        .classList.remove('open');
+
+}
+
+
+document
+    .querySelectorAll('.nav-btn')
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                'click',
+                () => showSection(
+                    button.dataset.section
+                )
+            );
+
+        }
+    );
+
+
+function toggleSidebar(){
+
+    document
+        .getElementById('sidebar')
+        .classList.toggle('open');
+
+}
+
+
+/* =====================================================
+   REFRESH
+===================================================== */
+
+function loadAndRender(){
+
+    loadData();
+
+    updateStats();
+
+    renderRecentRegistrations();
+
+    renderRegistrations();
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logoutAdmin(){
+
+    sessionStorage.removeItem(
+        'interlmgadmin'
+    );
+
+    window.location.href =
+        'login.html';
+
+}
+
+
+/* =====================================================
+   MODAL CLICK OUTSIDE
+===================================================== */
+
+document
+    .getElementById('detailsModal')
+    .addEventListener(
+        'click',
+        function(event){
+
+            if(event.target === this){
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+loadAndRender();
+
+</script>
+
+</body>
+</html>

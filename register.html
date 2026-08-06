@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register | INTERLMG ARM WRESTLING</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-charcoal: #141414;
+            --accent-red: #d41e1e;
+            --accent-orange: #ff6b00;
+            --accent-gold: #ffc107;
+            --text-white: #ffffff;
+            --text-gray: #b0b0b0;
+            --success: #00d26a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+
+            padding: 1.3rem 5%;
+
+            display: flex;
+            align-items: center;
+
+            z-index: 1000;
+
+            background: rgba(10, 10, 10, 0.98);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+
+            color: var(--text-white);
+
+            text-decoration: none;
+
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent-red);
+        }
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .register-container {
+            padding: 8rem 5% 4rem;
+
+            max-width: 1000px;
+
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+
+            margin-bottom: 0.7rem;
+        }
+
+        .section-header p {
+            color: var(--text-gray);
+        }
+
+        /* =========================
+           FORM SECTIONS
+        ========================= */
+
+        .form-section {
+            background: var(--bg-charcoal);
+
+            padding: 2rem;
+
+            margin-bottom: 2rem;
+
+            border: 1px solid rgba(255,255,255,0.07);
+
+            position: relative;
+        }
+
+        .form-section::before {
+            content: '';
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 2px;
+
+            background: linear-gradient(
+                90deg,
+                var(--accent-red),
+                var(--accent-gold)
+            );
+        }
+
+        .form-section h3 {
+            color: var(--accent-gold);
+
+            margin-bottom: 1.5rem;
+
+            font-size: 1.25rem;
+
+            border-bottom: 2px solid var(--accent-red);
+
+            padding-bottom: 0.5rem;
+
+            display: inline-block;
+        }
+
+        .form-row {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 1.5rem;
+
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 0.5rem;
+
+            font-size: 0.9rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            color: var(--text-gray);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+
+            width: 100%;
+
+            padding: 0.85rem 1rem;
+
+            background: var(--bg-dark);
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            color: var(--text-white);
+
+            font-family: 'Roboto', sans-serif;
+
+            font-size: 0.95rem;
+
+            transition: border-color 0.3s,
+                        box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+
+            outline: none;
+
+            border-color: var(--accent-red);
+
+            box-shadow: 0 0 0 2px rgba(212,30,30,0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #666;
+        }
+
+        .form-group input[type="date"] {
+            color-scheme: dark;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .required {
+            color: var(--accent-red);
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .btn {
+
+            padding: 1rem 2.5rem;
+
+            font-family: 'Oswald', sans-serif;
+
+            font-size: 1.1rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            border: none;
+
+            cursor: pointer;
+
+            transition: all 0.3s;
+
+            text-decoration: none;
+
+            display: inline-block;
+        }
+
+        .btn-primary {
+
+            background: var(--accent-red);
+
+            color: var(--text-white);
+
+            clip-path: polygon(
+                7% 0,
+                100% 0,
+                93% 100%,
+                0% 100%
+            );
+        }
+
+        .btn-primary:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 30px
+                rgba(212,30,30,0.4);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        /* =========================
+           SUCCESS
+        ========================= */
+
+        .success-message {
+
+            display: none;
+
+            background:
+                rgba(0,210,106,0.08);
+
+            border:
+                1px solid
+                var(--success);
+
+            padding: 2.5rem;
+
+            text-align: center;
+
+            margin-top: 2rem;
+        }
+
+        .success-message h3 {
+
+            color: var(--success);
+
+            font-size: 1.8rem;
+
+            margin-bottom: 0.5rem;
+        }
+
+        .registration-id {
+
+            font-family: 'Oswald', sans-serif;
+
+            font-size: 2.2rem;
+
+            color: var(--accent-gold);
+
+            letter-spacing: 3px;
+
+            margin: 1rem 0;
+
+            font-weight: 700;
+        }
+
+        .registration-info {
+
+            color: var(--text-gray);
+
+            margin-top: 0.5rem;
+
+            font-size: 0.9rem;
+        }
+
+        /* =========================
+           PAYMENT
+        ========================= */
+
+        .payment-section {
+
+            display: none;
+
+            margin-top: 2rem;
+
+            padding: 2rem;
+
+            background: var(--bg-charcoal);
+
+            border:
+                1px solid
+                var(--accent-gold);
+
+            text-align: center;
+        }
+
+        .payment-section h3 {
+
+            color: var(--accent-gold);
+
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-option {
+
+            margin: 2rem 0;
+
+            padding-bottom: 2rem;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.1);
+        }
+
+        .payment-option:last-child {
+            border-bottom: none;
+        }
+
+        .payment-option h4 {
+
+            color: var(--accent-gold);
+
+            margin-bottom: 1rem;
+        }
+
+        .payment-option p {
+            color: var(--text-gray);
+        }
+
+        .whatsapp-button {
+
+            background: #25D366;
+
+            color: #fff;
+
+            clip-path: none;
+
+            margin-top: 1rem;
+        }
+
+        .whatsapp-button:hover {
+
+            background: #1da851;
+
+            box-shadow:
+                0 10px 25px
+                rgba(37,211,102,0.25);
+        }
+
+        /* =========================
+           QR
+        ========================= */
+
+        .qr-code-container {
+
+            width: 230px;
+
+            height: 230px;
+
+            background: #fff;
+
+            margin: 1.2rem auto;
+
+            padding: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        .qr-code-container img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: contain;
+
+            display: block;
+        }
+
+        .upi-id {
+
+            color: var(--text-white);
+
+            font-weight: 700;
+
+            font-size: 1.1rem;
+        }
+
+        .payment-amount {
+
+            color: var(--accent-gold);
+
+            font-size: 1.4rem;
+
+            font-weight: 700;
+
+            margin-top: 0.5rem;
+        }
+
+        /* =========================
+           UTR
+        ========================= */
+
+        .utr-section {
+
+            margin-top: 2rem;
+
+            padding-top: 2rem;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.1);
+        }
+
+        .utr-section label {
+
+            display: block;
+
+            margin-bottom: 0.8rem;
+
+            color: var(--text-gray);
+        }
+
+        .utr-row {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 0.8rem;
+
+            flex-wrap: wrap;
+        }
+
+        .utr-row input {
+
+            padding: 0.85rem 1rem;
+
+            width: 280px;
+
+            background: var(--bg-dark);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            color: #fff;
+
+            font-size: 1rem;
+        }
+
+        .utr-status {
+
+            margin-top: 1rem;
+
+            color: var(--text-gray);
+
+            font-size: 0.9rem;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+
+            background: #050505;
+
+            padding: 2rem;
+
+            text-align: center;
+
+            color: var(--text-gray);
+
+            margin-top: 3rem;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            .navbar {
+                padding: 1rem 5%;
+            }
+
+            .logo {
+                font-size: 1.35rem;
+            }
+
+            .register-container {
+                padding: 7rem 4% 3rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.1rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+
+                gap: 0;
+            }
+
+            .form-section {
+                padding: 1.3rem;
+            }
+
+            .registration-id {
+                font-size: 1.7rem;
+            }
+
+            .payment-section {
+                padding: 1.3rem;
+            }
+
+            .qr-code-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .utr-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .utr-row input {
+                width: 100%;
+            }
+
+            .utr-row button {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+            <span>INTERLMG</span> ARM WRESTLING
+        </a>
+
+    </nav>
+
+
+    <!-- =========================
+         REGISTRATION
+    ========================= -->
+
+    <main class="register-container">
+
+        <div class="section-header">
+
+            <h2>Registration</h2>
+
+            <p>
+                Fill in your details to compete in the championship
+            </p>
+
+        </div>
+
+
+        <form id="registrationForm">
+
+
+            <!-- =========================
+                 PERSONAL INFORMATION
+            ========================= -->
+
+            <div class="form-section">
+
+                <h3>Personal Information</h3>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Full Name <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="fullName"
+                            required
+                            placeholder="As per ID proof"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Date of Birth <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="date"
+                            name="dob"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Gender <span class="required">*</span>
+                        </label>
+
+                        <select name="gender" required>
+
+                            <option value="">
+                                Select Gender
+                            </option>
+
+                            <option value="Male">
+                                Male
+                            </option>
+
+                            <option value="Female">
+                                Female
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Phone Number <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="phone"
+                            required
+                            placeholder="10 digit number"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            WhatsApp Number <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="whatsapp"
+                            required
+                            placeholder="With country code"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Email <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            required
+                            placeholder="example@email.com"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Address <span class="required">*</span>
+                    </label>
+
+                    <textarea
+                        name="address"
+                        rows="2"
+                        required
+                        placeholder="Full address"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            City <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="city"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            State <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="state"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 COMPETITION DETAILS
+            ========================= -->
+
+            <div class="form-section">
+
+                <h3>Competition Details</h3>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Weight (KG) <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            name="weight"
+                            required
+                            step="0.1"
+                            min="1"
+                            placeholder="e.g. 72.5"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Weight Category <span class="required">*</span>
+                        </label>
+
+                        <select name="category" required>
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            <option value="Junior (Up to 65kg)">
+                                Junior (Up to 65kg)
+                            </option>
+
+                            <option value="Lightweight (65-75kg)">
+                                Lightweight (65-75kg)
+                            </option>
+
+                            <option value="Middleweight (75-85kg)">
+                                Middleweight (75-85kg)
+                            </option>
+
+                            <option value="Heavyweight (85-95kg)">
+                                Heavyweight (85-95kg)
+                            </option>
+
+                            <option value="Super Heavyweight (95kg+)">
+                                Super Heavyweight (95kg+)
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Dominant Arm <span class="required">*</span>
+                        </label>
+
+                        <select name="dominantArm" required>
+
+                            <option value="">
+                                Select Arm
+                            </option>
+
+                            <option value="Right">
+                                Right
+                            </option>
+
+                            <option value="Left">
+                                Left
+                            </option>
+
+                            <option value="Both">
+                                Both
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Experience Level <span class="required">*</span>
+                        </label>
+
+                        <select name="experience" required>
+
+                            <option value="">
+                                Select Level
+                            </option>
+
+                            <option value="Beginner">
+                                Beginner
+                            </option>
+
+                            <option value="Intermediate">
+                                Intermediate
+                            </option>
+
+                            <option value="Advanced">
+                                Advanced
+                            </option>
+
+                            <option value="Professional">
+                                Professional
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Team / Club
+                    </label>
+
+                    <input
+                        type="text"
+                        name="team"
+                        placeholder="Optional"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 EVENT
+            ========================= -->
+
+            <div class="form-section">
+
+                <h3>Event Selection</h3>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Select Event <span class="required">*</span>
+                        </label>
+
+                        <select
+                            name="event"
+                            id="eventSelect"
+                            required
+                        >
+
+                            <option value="">
+                                Select Event
+                            </option>
+
+                            <option value="Championship 2026">
+                                Championship 2026
+                            </option>
+
+                            <option value="Pro League Match">
+                                Pro League Match
+                            </option>
+
+                            <option value="International Cup">
+                                International Cup
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Select Match <span class="required">*</span>
+                        </label>
+
+                        <select
+                            name="match"
+                            id="matchSelect"
+                            required
+                        >
+
+                            <option value="">
+                                Select Match
+                            </option>
+
+                            <option value="Singh vs Patel">
+                                Singh vs Patel
+                            </option>
+
+                            <option value="Open Category">
+                                Open Category
+                            </option>
+
+                            <option value="Team Event">
+                                Team Event
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 EMERGENCY
+            ========================= -->
+
+            <div class="form-section">
+
+                <h3>Emergency Contact</h3>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Contact Name <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="emergencyName"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Contact Phone <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="emergencyPhone"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Additional Notes
+                    </label>
+
+                    <textarea
+                        name="notes"
+                        rows="3"
+                        placeholder="Any additional information"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 SUBMIT
+            ========================= -->
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+                style="width:100%;"
+            >
+                Complete Registration
+            </button>
+
+        </form>
+
+
+        <!-- =========================
+             SUCCESS MESSAGE
+        ========================= -->
+
+        <div
+            class="success-message"
+            id="successMessage"
+        >
+
+            <h3>
+                Registration Successful!
+            </h3>
+
+            <p>
+                Your Registration ID is:
+            </p>
+
+            <div
+                class="registration-id"
+                id="regId"
+            ></div>
+
+            <p>
+                Please save this ID for future reference.
+            </p>
+
+            <p class="registration-info">
+                Payment Status:
+                <strong style="color:#ffc107;">
+                    PENDING
+                </strong>
+            </p>
+
+            <p class="registration-info">
+                Registration Status:
+                <strong style="color:#ffc107;">
+                    PENDING
+                </strong>
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             PAYMENT SECTION
+        ========================= -->
+
+        <div
+            class="payment-section"
+            id="paymentSection"
+        >
+
+            <h3>
+                Complete Your Payment
+            </h3>
+
+
+            <!-- WHATSAPP -->
+
+            <div class="payment-option">
+
+                <h4>
+                    Option 1: WhatsApp Payment
+                </h4>
+
+                <p>
+                    Contact INTERLMG on WhatsApp with your
+                    registration details.
+                </p>
+
+                <a
+                    href="#"
+                    id="whatsappLink"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn whatsapp-button"
+                >
+                    PAY VIA WHATSAPP
+                </a>
+
+            </div>
+
+
+            <!-- UPI -->
+
+            <div class="payment-option">
+
+                <h4>
+                    Option 2: UPI Payment
+                </h4>
+
+                <p>
+                    UPI ID:
+                    <span
+                        class="upi-id"
+                        id="upiIdDisplay"
+                    >
+                        interlmg@upi
+                    </span>
+                </p>
+
+                <div class="qr-code-container">
+
+                    <img
+                        src="image/upi-qr2.png"
+                        alt="INTERLMG UPI Payment QR Code"
+                    >
+
+                </div>
+
+                <div class="payment-amount">
+                    ₹350
+                </div>
+
+                <p style="margin-top:1rem;font-size:0.9rem;">
+
+                    1. Open your UPI app<br>
+
+                    2. Scan the QR code or enter the UPI ID<br>
+
+                    3. Pay ₹350<br>
+
+                    4. Keep your transaction ID / UTR
+
+                </p>
+
+            </div>
+
+
+            <!-- UTR -->
+
+            <div class="utr-section">
+
+                <label>
+                    Enter Transaction UTR / ID after payment
+                </label>
+
+                <div class="utr-row">
+
+                    <input
+                        type="text"
+                        id="utrInput"
+                        placeholder="Enter UTR / Transaction ID"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="submitUTR()"
+                        class="btn btn-primary"
+                    >
+                        SUBMIT UTR
+                    </button>
+
+                </div>
+
+                <p
+                    id="utrStatus"
+                    class="utr-status"
+                ></p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            &copy; 2026 INTERLMG ARM WRESTLING.
+            All rights reserved.
+        </p>
+
+    </footer>
+
+
+<script>
+
+/* =====================================================
+   INTERLMG REGISTRATION SYSTEM
+   =====================================================
+
+   STORAGE:
+
+   Main website data:
+   interlmg_data
+
+   Registration counter:
+   interlmg_registration_counter
+
+   Every registration gets:
+
+   ILMG-2026-0001
+   ILMG-2026-0002
+   ILMG-2026-0003
+
+   The counter never goes backwards.
+
+===================================================== */
+
+
+/* =====================================================
+   URL PARAMETERS
+===================================================== */
+
+const urlParams =
+    new URLSearchParams(window.location.search);
+
+const eventFromURL =
+    urlParams.get('event');
+
+const matchFromURL =
+    urlParams.get('match');
+
+
+if (eventFromURL) {
+
+    const eventSelect =
+        document.getElementById('eventSelect');
+
+    eventSelect.value =
+        eventFromURL;
+
+}
+
+
+if (matchFromURL) {
+
+    const matchSelect =
+        document.getElementById('matchSelect');
+
+    matchSelect.value =
+        matchFromURL;
+
+}
+
+
+/* =====================================================
+   GET WEBSITE DATA
+===================================================== */
+
+function getWebsiteData() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem('interlmg_data') || '{}'
+        );
+
+    } catch (error) {
+
+        console.error(
+            'INTERLMG data could not be loaded:',
+            error
+        );
+
+        return {};
+
+    }
+
+}
+
+
+/* =====================================================
+   SAVE WEBSITE DATA
+===================================================== */
+
+function saveWebsiteData(data) {
+
+    localStorage.setItem(
+        'interlmg_data',
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =====================================================
+   GENERATE UNIQUE REGISTRATION ID
+===================================================== */
+
+function generateRegistrationId() {
+
+    /*
+     * Get the permanent counter.
+     *
+     * This is NOT based on registrations.length.
+     *
+     * Therefore deleting a registration will
+     * never cause the same ID to be reused.
+     */
+
+    let counter =
+        Number(
+            localStorage.getItem(
+                'interlmg_registration_counter'
+            ) || '0'
+        );
+
+
+    counter++;
+
+
+    localStorage.setItem(
+        'interlmg_registration_counter',
+        String(counter)
+    );
+
+
+    const year =
+        new Date().getFullYear();
+
+
+    const sequence =
+        String(counter).padStart(4, '0');
+
+
+    return `ILMG-${year}-${sequence}`;
+
+}
+
+
+/* =====================================================
+   REGISTRATION SUBMISSION
+===================================================== */
+
+document
+    .getElementById('registrationForm')
+    .addEventListener(
+        'submit',
+        function(event) {
+
+            event.preventDefault();
+
+
+            /*
+             * Collect form data
+             */
+
+            const formData =
+                new FormData(event.target);
+
+
+            const formValues =
+                Object.fromEntries(
+                    formData.entries()
+                );
+
+
+            /*
+             * Load website data
+             */
+
+            const websiteData =
+                getWebsiteData();
+
+
+            /*
+             * Make sure registrations array exists
+             */
+
+            if (
+                !Array.isArray(
+                    websiteData.registrations
+                )
+            ) {
+
+                websiteData.registrations = [];
+
+            }
+
+
+            /*
+             * Generate unique ID
+             */
+
+            const registrationId =
+                generateRegistrationId();
+
+
+            /*
+             * Exact registration date
+             */
+
+            const registrationDate =
+                new Date().toISOString();
+
+
+            /*
+             * Create registration object
+             */
+
+            const registration = {
+
+                id:
+                    registrationId,
+
+                name:
+                    formValues.fullName || '',
+
+                fullName:
+                    formValues.fullName || '',
+
+                dob:
+                    formValues.dob || '',
+
+                gender:
+                    formValues.gender || '',
+
+                phone:
+                    formValues.phone || '',
+
+                whatsapp:
+                    formValues.whatsapp || '',
+
+                email:
+                    formValues.email || '',
+
+                address:
+                    formValues.address || '',
+
+                city:
+                    formValues.city || '',
+
+                state:
+                    formValues.state || '',
+
+                weight:
+                    formValues.weight || '',
+
+                category:
+                    formValues.category || '',
+
+                weightCategory:
+                    formValues.category || '',
+
+                dominantArm:
+                    formValues.dominantArm || '',
+
+                experience:
+                    formValues.experience || '',
+
+                team:
+                    formValues.team || '',
+
+                event:
+                    formValues.event || '',
+
+                match:
+                    formValues.match || '',
+
+                emergencyName:
+                    formValues.emergencyName || '',
+
+                emergencyPhone:
+                    formValues.emergencyPhone || '',
+
+                notes:
+                    formValues.notes || '',
+
+                /*
+                 * IMPORTANT:
+                 * These are the fields the admin
+                 * dashboard can use.
+                 */
+
+                registrationDate:
+                    registrationDate,
+
+                createdAt:
+                    registrationDate,
+
+                paymentStatus:
+                    'Pending',
+
+                registrationStatus:
+                    'Pending',
+
+                status:
+                    'Pending',
+
+                paymentMethod:
+                    '',
+
+                utr:
+                    '',
+
+                paymentVerifiedAt:
+                    ''
+
+            };
+
+
+            /*
+             * Add registration to array
+             */
+
+            websiteData.registrations.push(
+                registration
+            );
+
+
+            /*
+             * Save EVERYTHING
+             */
+
+            saveWebsiteData(
+                websiteData
+            );
+
+
+            /*
+             * Also save the same registration
+             * under the dedicated registration key.
+             *
+             * This makes it easier to use later
+             * if we connect a separate registration
+             * page/dashboard system.
+             */
+
+            let separateRegistrations = [];
+
+            try {
+
+                separateRegistrations =
+                    JSON.parse(
+                        localStorage.getItem(
+                            'interlmg_registrations'
+                        ) || '[]'
+                    );
+
+            } catch (error) {
+
+                separateRegistrations = [];
+
+            }
+
+
+            separateRegistrations.push(
+                registration
+            );
+
+
+            localStorage.setItem(
+                'interlmg_registrations',
+                JSON.stringify(
+                    separateRegistrations
+                )
+            );
+
+
+            /* =================================================
+               SHOW REGISTRATION SUCCESS
+            ================================================= */
+
+            document
+                .getElementById('regId')
+                .textContent =
+                registrationId;
+
+
+            document
+                .getElementById('successMessage')
+                .style.display =
+                'block';
+
+
+            document
+                .getElementById('paymentSection')
+                .style.display =
+                'block';
+
+
+            document
+                .getElementById('registrationForm')
+                .style.display =
+                'none';
+
+
+            /* =================================================
+               WHATSAPP MESSAGE
+            ================================================= */
+
+            const whatsappNumber =
+                websiteData.settings &&
+                websiteData.settings.whatsappNumber
+                    ? websiteData.settings.whatsappNumber
+                    : '919876543210';
+
+
+            const whatsappMessage =
+`Hello INTERLMG!
+
+I have registered for the arm wrestling event.
+
+Name: ${registration.fullName}
+
+Registration ID: ${registration.id}
+
+Event: ${registration.event}
+
+Match: ${registration.match}
+
+Category: ${registration.category}
+
+Weight: ${registration.weight} KG
+
+I would like to proceed with the payment.`;
+
+
+            const whatsappURL =
+                'https://wa.me/' +
+                whatsappNumber.replace(
+                    /\D/g,
+                    ''
+                ) +
+                '?text=' +
+                encodeURIComponent(
+                    whatsappMessage
+                );
+
+
+            document
+                .getElementById('whatsappLink')
+                .href =
+                whatsappURL;
+
+
+            /* =================================================
+               UPI SETTINGS
+            ================================================= */
+
+            if (
+                websiteData.settings &&
+                websiteData.settings.upiId
+            ) {
+
+                document
+                    .getElementById('upiIdDisplay')
+                    .textContent =
+                    websiteData.settings.upiId;
+
+            }
+
+
+            /* =================================================
+               SCROLL TO SUCCESS
+            ================================================= */
+
+            setTimeout(
+                function() {
+
+                    document
+                        .getElementById('successMessage')
+                        .scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+
+                },
+                200
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   SUBMIT UTR
+===================================================== */
+
+function submitUTR() {
+
+    const utrInput =
+        document.getElementById('utrInput');
+
+
+    const utrStatus =
+        document.getElementById('utrStatus');
+
+
+    const utr =
+        utrInput.value.trim();
+
+
+    if (!utr) {
+
+        alert(
+            'Please enter the transaction UTR / ID.'
+        );
+
+        utrInput.focus();
+
+        return;
+
+    }
+
+
+    /*
+     * Get current registration ID
+     */
+
+    const registrationId =
+        document
+            .getElementById('regId')
+            .textContent
+            .trim();
+
+
+    if (!registrationId) {
+
+        alert(
+            'Registration ID could not be found.'
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Update main data
+     */
+
+    const websiteData =
+        getWebsiteData();
+
+
+    if (
+        Array.isArray(
+            websiteData.registrations
+        )
+    ) {
+
+        const registration =
+            websiteData.registrations.find(
+                function(item) {
+
+                    return item.id ===
+                        registrationId;
+
+                }
+            );
+
+
+        if (registration) {
+
+            registration.utr =
+                utr;
+
+            registration.paymentMethod =
+                'UPI';
+
+            registration.paymentStatus =
+                'Pending';
+
+            registration.registrationStatus =
+                'Pending';
+
+            registration.status =
+                'Pending';
+
+            registration.utrSubmittedAt =
+                new Date().toISOString();
+
+        }
+
+    }
+
+
+    /*
+     * Save updated data
+     */
+
+    saveWebsiteData(
+        websiteData
+    );
+
+
+    /*
+     * Update separate registration storage
+     */
+
+    let registrations = [];
+
+    try {
+
+        registrations =
+            JSON.parse(
+                localStorage.getItem(
+                    'interlmg_registrations'
+                ) || '[]'
+            );
+
+    } catch (error) {
+
+        registrations = [];
+
+    }
+
+
+    const separateRegistration =
+        registrations.find(
+            function(item) {
+
+                return item.id ===
+                    registrationId;
+
+            }
+        );
+
+
+    if (separateRegistration) {
+
+        separateRegistration.utr =
+            utr;
+
+        separateRegistration.paymentMethod =
+            'UPI';
+
+        separateRegistration.paymentStatus =
+            'Pending';
+
+        separateRegistration.registrationStatus =
+            'Pending';
+
+        separateRegistration.status =
+            'Pending';
+
+        separateRegistration.utrSubmittedAt =
+            new Date().toISOString();
+
+    }
+
+
+    localStorage.setItem(
+        'interlmg_registrations',
+        JSON.stringify(
+            registrations
+        )
+    );
+
+
+    /*
+     * Show confirmation
+     */
+
+    utrStatus.innerHTML = `
+
+        <span style="color:#00d26a;font-weight:700;">
+            UTR SUBMITTED SUCCESSFULLY
+        </span>
+
+        <br>
+
+        <small>
+            Registration ID:
+            ${registrationId}
+        </small>
+
+        <br>
+
+        <small>
+            Payment verification is pending.
+            Admin will verify your payment.
+        </small>
+
+    `;
+
+
+    utrInput.value = '';
+
+}
+
+
+/* =====================================================
+   PREVENT DOUBLE SUBMISSION
+===================================================== */
+
+document
+    .getElementById('registrationForm')
+    .addEventListener(
+        'submit',
+        function() {
+
+            const button =
+                this.querySelector(
+                    'button[type="submit"]'
+                );
+
+            if (button) {
+
+                button.disabled =
+                    true;
+
+                button.textContent =
+                    'SAVING REGISTRATION...';
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>

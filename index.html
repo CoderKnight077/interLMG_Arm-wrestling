@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTERLMG ARM WRESTLING</title>
+    <link rel="preconnect" href="[fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Roboto:wght@300;400;700&display=swap)" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-charcoal: #141414;
+            --accent-red: #d41e1e;
+            --accent-orange: #ff6b00;
+            --accent-gold: #ffc107;
+            --text-white: #ffffff;
+            --text-gray: #b0b0b0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--accent-red);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-red);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-red);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-poster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('[images.unsplash.com](https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80)');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 900px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--accent-orange);
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-title-accent {
+            color: var(--accent-red);
+            display: block;
+        }
+
+        .hero-date {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent-red);
+            color: var(--text-white);
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 30, 30, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-white);
+            border: 2px solid var(--text-white);
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+
+        .btn-outline:hover {
+            background: var(--text-white);
+            color: var(--bg-dark);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent-red);
+        }
+
+        .section-header p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Upcoming Match - Parallax */
+        .upcoming-match {
+            background: var(--bg-charcoal);
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upcoming-match:hover {
+            box-shadow: inset 0 0 100px rgba(212, 30, 30, 0.2);
+        }
+
+        .match-parallax-bg {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 120%;
+            height: 140%;
+            background-image: url('[images.unsplash.com](https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80)');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.15) grayscale(1);
+            will-change: transform;
+        }
+
+        .match-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .fighter {
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+        }
+
+        .fighter-image {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+            border: 5px solid var(--accent-red);
+            box-shadow: 0 0 30px rgba(212, 30, 30, 0.3), 0 0 60px rgba(212, 30, 30, 0.1);
+        }
+
+        .fighter-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.3);
+        }
+
+        .fighter h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .fighter .team {
+            color: var(--accent-orange);
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .vs-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .vs-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--accent-red);
+            text-shadow: 0 0 20px rgba(212, 30, 30, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        .match-meta {
+            text-align: center;
+            background: rgba(0,0,0,0.7);
+            padding: 1rem 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .match-meta .date {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .match-meta .venue {
+            color: var(--text-gray);
+            margin-top: 0.5rem;
+        }
+
+        .referee {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            padding: 0.8rem 2rem;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .referee span {
+            color: var(--accent-gold);
+        }
+
+        /* Super Match */
+        .super-match {
+            background: var(--bg-dark);
+            position: relative;
+        }
+
+        .super-match-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .super-fighter {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+            position: relative;
+        }
+
+        .super-fighter.left {
+            transform: translateX(20px);
+        }
+
+        .super-fighter.right {
+            transform: translateX(-20px);
+        }
+
+        .super-image {
+            width: 100%;
+            max-width: 450px;
+            height: 550px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
+        }
+
+        .super-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.1);
+        }
+
+        .super-fighter .stats {
+            background: rgba(20, 20, 20, 0.9);
+            padding: 1rem;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.1);
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .super-fighter h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+        }
+
+        .stat-value {
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .super-vs {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            font-family: 'Oswald', sans-serif;
+            font-size: 6rem;
+            font-weight: 700;
+            color: var(--accent-red);
+            text-shadow: 0 0 40px rgba(212, 30, 30, 0.6);
+            pointer-events: none;
+        }
+
+        /* Upcoming Events */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .event-card {
+            background: var(--bg-charcoal);
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .event-card:hover .event-image img {
+            transform: scale(1.1);
+        }
+
+        .event-info {
+            padding: 1.5rem;
+        }
+
+        .event-date {
+            color: var(--accent-orange);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-location {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .event-status {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .status-open {
+            background: rgba(0, 255, 100, 0.2);
+            color: #00ff64;
+        }
+
+        .status-closed {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff4444;
+        }
+
+        /* Featured Athletes */
+        .athletes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .athlete-card {
+            background: var(--bg-charcoal);
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .athlete-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+            transition: left 0.5s;
+        }
+
+        .athlete-card:hover::before {
+            left: 100%;
+        }
+
+        .athlete-card:hover {
+            border-color: rgba(212, 30, 30, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .athlete-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            overflow: hidden;
+            border: 3px solid var(--accent-red);
+        }
+
+        .athlete-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .athlete-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .athlete-rank {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .athlete-record {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--bg-charcoal);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            grid-auto-rows: 250px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s, filter 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(0.7);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Testimonials */
+        .testimonials-container {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding-bottom: 2rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .testimonials-container::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .testimonials-container::-webkit-scrollbar-thumb {
+            background: var(--accent-red);
+            border-radius: 10px;
+        }
+
+        .testimonial-card {
+            flex: 0 0 350px;
+            background: var(--bg-charcoal);
+            padding: 2rem;
+            border-left: 3px solid var(--accent-red);
+            scroll-snap-align: start;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-author h5 {
+            font-size: 1rem;
+        }
+
+        .testimonial-author span {
+            color: var(--accent-orange);
+            font-size: 0.8rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(212, 30, 30, 0.1), rgba(0,0,0,0.9));
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212,30,30,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Contact */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 30, 30, 0.1);
+            border: 1px solid rgba(212, 30, 30, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-red);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-item p, .contact-item a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent-red);
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-charcoal);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-white);
+            font-family: 'Roboto', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-red);
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        .footer {
+            background: #050505;
+            padding: 4rem 5% 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-white);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--accent-red);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: var(--text-white);
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scroll Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .super-vs {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                order: -1;                                      
+                margin: 1rem 0;
+            }
+
+            .super-fighter.left, .super-fighter.right {
+                transform: none;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item.wide {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                padding: 2rem;
+                transition: right 0.3s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1001;
+            }
+
+            .fighter-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .vs-text {
+                font-size: 3rem;
+            }
+
+            .super-image {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">
+            <span>INTERLMG</span> ARM WRESTLING
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#match">Match</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#athletes">Athletes</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#register" class="btn btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Register</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-poster" id="heroPoster"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">The Ultimate Showdown</p>
+            <h1>
+                INTERLMG
+                <span class="hero-title-accent">ARM WRESTLING</span>
+            </h1>
+            <p class="hero-date">CHAMPIONSHIP 2026</p>
+            <div class="hero-buttons">
+                <a href="match-details.html" class="btn btn-primary">View Match</a>
+                <a href="register.html" class="btn btn-outline">Register Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Match -->
+    <section class="upcoming-match" id="match" onclick="window.location.href='match-details.html'">
+        <div class="match-parallax-bg" id="parallaxBg"></div>
+        <div class="match-content">
+            <div class="fighter">
+                <div class="fighter-image">
+                    <img src="image/Rocket.png" alt="Fighter 1">
+                </div>
+                <h3> Rocket </h3>
+                <p class="team">Team Lumding </p>
+            </div>
+            <div class="vs-container">
+                <div class="vs-text">VS</div>
+                <div class="match-meta">
+                    <div class="date">AUG 15, 2026 | 7:00 PM</div>
+                    <div class="venue"> Azad Hind Public Library , Lumding , Assam </div>
+                </div>
+            </div>
+            <div class="fighter">
+                <div class="fighter-image">
+                    <img src="image/Gourav.jpeg" alt="Fighter 2">
+                </div>
+                <h3> Gaurav </h3>
+                <p class="team">Team Hojai  </p>
+            </div>
+        </div>
+        <div class="referee">
+            Referee: <span> Bishal , Payel Bhowmick   </span>
+        </div>
+    </section>
+
+    <!-- Super Match -->
+    <section class="super-match">
+        <div class="section-header">
+            <h2>Super Match</h2>
+            <p>The biggest rivalry in arm wrestling history</p>
+        </div>
+        <div class="super-match-container">
+            <div class="super-fighter left">
+                <div class="super-image">
+                    <img src="image/BikiShamra_supermatch.png" alt="Super Fighter 1">
+                </div>
+                <div class="stats reveal">
+                    <h3> Biki Sharma </h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Category</span>
+                        <span class="stat-value">Right Hand</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Weight</span>
+                        <span class="stat-value">55 KG</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Team</span>
+                        <span class="stat-value"> Lumding </span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Rank</span>
+                        <span class="stat-value"> Top </span>
+                    </div>
+                </div>
+            </div>
+            <div class="super-vs">VS</div>
+            <div class="super-fighter right">
+                <div class="super-image">
+                    <img src="image/Angshu_supermatch.png" alt="Super Fighter 2">
+                </div>
+                <div class="stats reveal">
+                    <h3> Angshu  </h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Category</span>
+                        <span class="stat-value">Right Hand</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Weight</span>
+                        <span class="stat-value"> 50 Kg </span>
+                    </dv>
+                    <div class="stat-row">
+                        <span class="stat-label">Team</span>
+                        <span class="stat-value"> Badarpur  </span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Rank</span>
+                        <span class="stat-value"> Top </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="events" id="events">
+        <div class="section-header">
+            <h2>Upcoming Events</h2>
+            <p>Don't miss the action</p>
+        </div>
+        <div class="events-grid">
+            <div class="event-card reveal">
+                <div class="event-image">
+                    <img src="image/Rocket.png" alt="Event 1">
+                </div>
+                <div class="event-info">
+                    <div class="event-date">August 15, 2026</div>
+                    <h3 class="event-title"> Open Arm Wrestling Championship 2026 </h3>
+                    <div class="event-location">📍 Lumding, Assam </div>
+                    <span class="event-status status-open">Registration Open</span>
+                </div>
+            </div>
+            <div class="event-card reveal">
+                <div class="event-image">
+                    <img src="image/Gourav.jpeg" alt="Event 2">
+                </div>
+                <div class="event-info">
+                    <div class="event-date"> August 15 , 2026</div>
+                    <h3 class="event-title"> Open Arm wrestling Champitonship 2026  </h3>
+                    <div class="event-location">📍 Lumding , Assam  </div>
+                    <span class="event-status status-open">Registration Open</span>
+                </div>
+            </div>
+            <div class="event-card reveal">
+                <div class="event-image">
+                    <img src="[images.unsplash.com](https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80)" alt="Event 3">
+                </div>
+                <div class="event-info">
+                    <div class="event-date">October 10, 2026</div>
+                    <h3 class="event-title">International Cup</h3>
+                    <div class="event-location">📍 Bangalore, India</div>
+                    <span class="event-status status-closed">Coming Soon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Athletes -->
+    <section class="athletes" id="athletes">
+        <div class="section-header">
+            <h2>Featured Athletes</h2>
+            <p>Meet the champions</p>
+        </div>
+        <div class="athletes-grid">
+            <div class="athlete-card reveal">
+                <div class="athlete-img">
+                    <img src="[images.unsplash.com](https://images.unsplash.com/photo-1567013127542-490d757e51fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80)" alt="Athlete 1">
+                </div>
+                <h4>Vikram Singh</h4>
+                <div class="athlete-rank">#1 Ranked</div>
+                <div class="athlete-record">Record: 42-3</div>
+            </div>
+            <div class="athlete-card reveal">
+                <div class="athlete-img">
+                    <img src="[images.unsplash.com](https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80)" alt="Athlete 2">
+                </div>
+                <h4>Rahul Patel</h4>
+                <div class="athlete-rank">#2 Ranked</div>
+                <div class="athlete-record">Record: 38-5</div>
+            </div>
+            <div class="athlete-card reveal">
+                <div class="athlete-img">
+                    <img src="[images.unsplash.com](https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80)" alt="Athlete 3">
+                </div>
+                <h4>Ajay Kumar</h4>
+                <div class="athlete-rank">#3 Ranked</div>
+                <div class="athlete-record">Record: 35-8</div>
+            </div>
+            <div class="athlete-card reveal">
+                <div class="athlete-img">
+                    <img src="[images.unsplash.com](https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80)" alt="Athlete 4">
+                </div>
+                <h4>Suresh Menon</h4>
+                <div class="athlete-rank">#4 Ranked</div>
+                <div class="athlete-record">Record: 31-10</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery" id="gallery">
+        <div class="section-header">
+            <h2>Gallery</h2>
+            <p>Moments of glory</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item wide reveal">
+                <img src="image/TeamLumding.jpeg" alt="Gallery 1">
+                <div class="gallery-overlay"> Team Lumding </div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="image/TrainingSession.jpeg" alt="Gallery 2">
+                <div class="gallery-overlay">Training Session</div>
+            </div>
+            <div class="gallery-item tall reveal">
+                <img src="image/VictoryMoment.jpeg" alt="Gallery 3">
+                <div class="gallery-overlay">Victory Moment</div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="image/PreMatchRitual.jpeg" alt="Gallery 4">
+                <div class="gallery-overlay">Pre Match Ritual</div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="image/TeamIronGrip.jpeg" alt="Gallery 5">
+                <div class="gallery-overlay">Team Iron Grip</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        <img src="" alt="Full size" id="lightboxImg">
+    </div>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <h2>Testimonials</h2>
+            <p>What athletes say</p>
+        </div>
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"INTERLMG has revolutionized arm wrestling in Regional Area of Assam . The professionalism and scale of their events is unmatched."</p>
+                <div class="testimonial-author">
+                    <img src="[images.unsplash.com](https://images.unsplash.com/photo-1567013127542-490d757e51fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80)" alt="Author">
+                    <div>
+                        <h5> Bishal Maitra </h5>
+                        <span> National Champion </span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The best platform for upcoming arm wrestlers. I started my journey here and now I'm ranked in the top ."</p>
+                <div class="testimonial-author">
+                    <img src="[images.unsplash.com](https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80)" alt="Author">
+                    <div>
+                        <h5> Biki Sharma  </h5>
+                        <span> Regional Champion</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Incredible atmosphere, Top-class referees, and fair matches. This is what arm wrestling needed."</p>
+                <div class="testimonial-author">
+                    <img src="[images.unsplash.com](https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80)" alt="Author">
+                    <div>
+                        <h5> Subham Chowdhury </h5>
+                        <span> State Champion</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="register">
+        <div class="cta-content">
+            <h2>Become a Champion</h2>
+            <p>Register now for the upcoming championship and compete with the best arm wrestlers in the country.</p>
+            <a href="register.html" class="btn btn-primary">Register Now</a>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="section-header">
+            <h2>Contact Us</h2>
+            <p>Get in touch</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Event Information</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <h4>Venue</h4>
+                        <p> Azad Hindi Public Library, Lumding , Assam </p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+91 887628286945</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div>
+                        <h4>Email</h4>
+                        <p> chhayabhowmickt20@gmail.com </p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <div>
+                        <h4>WhatsApp</h4>
+                        <p>+91 887628286945</p>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form" onsubmit="handleContactSubmit(event)">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">                                                                      
+                    <label>Message</label>
+                    <textarea required placeholder="Your message..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>INTERLMG</h4>
+                <p style="color: var(--text-gray); line-height: 1.6;">India's premier arm wrestling organization, bringing national-level promoting the sport nationwide.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#athletes">Athletes</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Events</h4>
+                <ul>
+                    <li><a href="#"> Open Arm Wrestling Championship 2026</a></li>
+                    <li><a href="#"> Inter Lumding Arm wrestling Competition 2026</a></li>
+                    <li><a href="#"> District Level Competitions   </a></li>
+                    <li><a href="#">Regional level Arm competitions   </a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Admin</h4>
+                <ul>
+                    <li><a href="admin/login.html">Admin Login</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 INTERLMG ARM WRESTLING. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Parallax effect
+        const parallaxBg = document.getElementById('parallaxBg');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxSection = document.querySelector('.upcoming-match');
+            const rect = parallaxSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const speed = 0.5;
+                const yPos = -(scrolled - parallaxSection.offsetTop) * speed;
+                parallaxBg.style.transform = `translateY(${yPos}px)`;
+            }
+        });
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Lightbox
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Contact form
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            e.target.reset();
+        }
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.textContent = '☰';
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Initialize data storage
+        if (!localStorage.getItem('interlmg_data')) {
+            const initialData = {
+                registrations: [],
+                events: [],
+                athletes: [],
+                gallery: [],
+                testimonials: [],
+                settings: {
+                    whatsappNumber: '+919876543210',
+                    upiId: 'interlmg@upi',
+                    qrCode: '',
+                    heroPoster: '',
+                    featuredMatch: ''
+                },
+                admin: {
+                    password: 'admin123' // Default password (change in admin panel)
+                }
+            };
+            localStorage.setItem('interlmg_data', JSON.stringify(initialData));
+        }
+    </script>
+</body>
+</html>
